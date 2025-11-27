@@ -49,6 +49,7 @@ LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "180"))
 
 stripe.api_key = os.getenv("STRIPE_SECRET_KEY", "").strip()
 PRICE_ID = os.getenv("STRIPE_PRICE_ID", "").strip()
+STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "").strip()
 
 BASE_URL = (os.getenv("BASE_URL", "http://127.0.0.1:5000")).rstrip("/")
 
