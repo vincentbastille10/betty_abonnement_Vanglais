@@ -1153,6 +1153,40 @@ def avatar(slug: str):
         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+Xad8AAAAASUVORK5CYII="
     )
     return Response(transparent_png, mimetype="image/png")
+    
+@app.route("/stripe_webhook", methods=["POST"])
+def stripe_webhook():
+    payload = request.data
+    sig_header = request.headers.get("Stripe-Signature")
+
+    if not STRIPE_WEBHOOK_SECRET:
+        app.logger.error("[STRIPE][WEBHOOK] STRIPE_WEBHOOK_SECRET manquant")
+        return jsonify({"error": "webhook secret not configured"}), 500
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload,
+            sig_header,
+            STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        app.logger.error(f"[STRIPE][WEBHOOK] Payload invalide : {e}")
+        return jsonify({"error": "invalid payload"}), 400
+    except stripe.error.SignatureVerificationError as e:
+        app.logger.error(f"[STRIPE][WEBHOOK] Signature invalide : {e}")
+        return jsonify({"error": "invalid signature"}), 400
+
+    event_type = event.get("type")
+    app.logger.info(f"[STRIPE][WEBHOOK] Event reçu : {event_type}")
+
+    if event_type == "checkout.session.completed":
+        session_obj = event["data"]["object"]
+        app.logger.info(
+            f"[STRIPE][WEBHOOK] checkout.session.completed -> "
+            f"id={session_obj.get('id')} email={session_obj.get('customer_email')}"
+        )
+
+    return jsonify({"received": True}), 200
 
 # ==== Main ====
 if __name__ == "__main__":
