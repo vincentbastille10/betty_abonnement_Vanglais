@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Récapitulatif — Betty Abonnement</title>
+  <title>Summary — Betty Subscription</title>
 
-  <!-- Fallbacks assets (évite 404) -->
+  <!-- Fallback assets (avoid 404) -->
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
@@ -92,23 +92,23 @@
     <header class="top">
       <div class="logo">
         <div class="logo-badge" aria-hidden="true"></div>
-        <div>Betty — <span style="opacity:.85">Abonnement</span></div>
+        <div>Betty — <span style="opacity:.85">Subscription</span></div>
       </div>
-      <!-- (rien à droite : pas de payer/modifier/preview/config en post-paiement) -->
+      <!-- (nothing on the right: no pay/edit/preview/config after payment) -->
     </header>
 
-    <!-- Bandeau succès -->
+    <!-- Success banner -->
     <div class="card" style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
       <div style="width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(16,185,129,.18)"></div>
-      <div style="font-weight:700">Paiement confirmé</div>
-      <div class="hint">Votre bot est activé. Utilisez le code d’intégration ci-dessous.</div>
+      <div style="font-weight:700">Payment confirmed</div>
+      <div class="hint">Your bot is active. Use the integration code below.</div>
     </div>
 
     <div class="grid">
-      <!-- Colonne gauche : récap bot -->
+      <!-- Left column: bot summary -->
       <section class="card">
-        <h2 class="headline">Votre bot</h2>
-        <p class="sub">Vérifiez l’identité avant intégration. Vous pouvez rééditer ces éléments plus tard depuis le dashboard.</p>
+        <h2 class="headline">Your bot</h2>
+        <p class="sub">Check the identity before integration. You can update these elements later from the dashboard.</p>
 
         <div class="kv" style="margin-bottom:14px">
           <div>
@@ -116,65 +116,65 @@
                  onerror="this.src='/avatar/agent_immo'; this.style.opacity='.95'">
           </div>
           <div class="info-list">
-            <div><span class="k">Nom</span> — <span>{{ (cfg.display_name or 'Betty Bot') | e }}</span></div>
+            <div><span class="k">Name</span> — <span>{{ (cfg.display_name or 'Betty Bot') | e }}</span></div>
             <div><span class="k">Pack</span> — <span class="badge">{{ (cfg.pack or '-') | e }}</span></div>
-            <div><span class="k">Couleur</span> — <span class="badge">{{ (cfg.color or '#4F46E5') | e }}</span></div>
-            <div><span class="k">Greeting</span> — <span>{{ (cfg.greeting or 'Bonjour, je suis Betty. Comment puis-je vous aider ?') | e }}</span></div>
+            <div><span class="k">Color</span> — <span class="badge">{{ (cfg.color or '#4F46E5') | e }}</span></div>
+            <div><span class="k">Greeting</span> — <span>{{ (cfg.greeting or 'Hi, I’m Betty. How can I help you?') | e }}</span></div>
             <div><span class="k">Position</span> — <span>px={{ (cfg.px or '0.5') | e }}, py={{ (cfg.py or '0.5') | e }}</span></div>
-            <div><span class="k">ID public</span> — <span class="mono">{{ (cfg.public_id or '-') | e }}</span></div>
+            <div><span class="k">Public ID</span> — <span class="mono">{{ (cfg.public_id or '-') | e }}</span></div>
           </div>
         </div>
 
         <details class="grp">
-          <summary>📦 Contenu du pack <span class="chev"></span></summary>
+          <summary>📦 Pack contents <span class="chev"></span></summary>
           <div class="sub-panel two">
             <div>
-              <h3 style="margin:0 0 6px">Inclus</h3>
+              <h3 style="margin:0 0 6px">Included</h3>
               <ul style="margin:0 0 8px 18px">
-                <li>Assistant web embarqué (1 domaine)</li>
-                <li>Qualification de leads + envoi e-mail</li>
-                <li>Dashboard de configuration rapide</li>
-                <li>Personnalisation (avatar / teinte / message)</li>
+                <li>Embedded web assistant (1 domain)</li>
+                <li>Lead qualification + email sending</li>
+                <li>Fast configuration dashboard</li>
+                <li>Customization (avatar / color / message)</li>
               </ul>
             </div>
             <div>
-              <h3 style="margin:0 0 6px">Spécificités métier</h3>
+              <h3 style="margin:0 0 6px">Profession-specific</h3>
               <ul style="margin:0 0 8px 18px">
-                <li>Scripts adaptés : <b>{{ (cfg.pack or '-') | e }}</b></li>
-                <li>Modèle de collecte structuré (LEAD_JSON)</li>
-                <li>RGPD de base (opt-in ; export sur demande)</li>
+                <li>Scripts adapted to: <b>{{ (cfg.pack or '-') | e }}</b></li>
+                <li>Structured collection model (LEAD_JSON)</li>
+                <li>Basic GDPR (opt-in; export on request)</li>
               </ul>
             </div>
           </div>
         </details>
 
         <details class="grp" style="margin-top:12px">
-          <summary>🧪 Détails techniques <span class="chev"></span></summary>
+          <summary>🧪 Technical details <span class="chev"></span></summary>
           <div class="sub-panel">
-            <p class="hint">Valeurs utiles (source : DB + querystring).</p>
+            <p class="hint">Useful values (source: DB + querystring).</p>
             <pre class="code mono">{{ cfg | tojson(indent=2) }}</pre>
           </div>
         </details>
       </section>
 
-      <!-- Colonne droite : intégration -->
+      <!-- Right column: integration -->
       <aside class="card">
-        <h2 class="headline">Intégration</h2>
-        <p class="sub">Copiez/collez ce bloc dans votre site (Wix/Webflow/Squarespace…).</p>
+        <h2 class="headline">Integration</h2>
+        <p class="sub">Copy/paste this block into your website (Wix / Webflow / Squarespace…).</p>
 
         <h3 style="margin:0 0 6px">Iframe</h3>
         <pre class="code mono">{{ cfg.iframe_snippet | e }}</pre>
-        <p class="hint" style="margin-top:8px">URL : <span class="mono">{{ cfg.embed_url | e }}</span></p>
+        <p class="hint" style="margin-top:8px">URL: <span class="mono">{{ cfg.embed_url | e }}</span></p>
 
         <hr class="divider">
 
         <details class="grp">
-          <summary>❓ Dépannage rapide <span class="chev"></span></summary>
+          <summary>❓ Quick troubleshooting <span class="chev"></span></summary>
           <div class="sub-panel">
             <ul style="margin:0 0 8px 18px">
-              <li>Si l’avatar ne s’affiche pas, un <code>onerror</code> bascule vers <code>/avatar/agent_immo</code>.</li>
-              <li>Linux est sensible à la casse : renommez exactement les fichiers sous <code>/static</code>.</li>
-              <li>Les 404 d’assets (<code>/favicon-*.png</code>, <code>/site.webmanifest</code>) n’empêchent pas l’intégration.</li>
+              <li>If the avatar doesn’t load, an <code>onerror</code> fallback switches to <code>/avatar/agent_immo</code>.</li>
+              <li>Linux is case-sensitive: make sure file names under <code>/static</code> match exactly.</li>
+              <li>Asset 404s (<code>/favicon-*.png</code>, <code>/site.webmanifest</code>) do not prevent the integration from working.</li>
             </ul>
           </div>
         </details>
@@ -183,12 +183,12 @@
 
     <footer>
       <div>© Betty Bots — Spectra Media</div>
-      <div class="r">Support : <a style="color:#a5b4fc" href="mailto:support@spectramedia.ai">support@spectramedia.ai</a></div>
+      <div class="r">Support: <a style="color:#a5b4fc" href="mailto:support@spectramedia.ai">support@spectramedia.ai</a></div>
     </footer>
   </div>
 
   <script>
-    // Harmonise la teinte
+    // Harmonize brand color
     try{ document.documentElement.style.setProperty('--brand', "{{ (cfg.color or '#4F46E5')|e }}"); }catch(e){}
   </script>
 </body>
