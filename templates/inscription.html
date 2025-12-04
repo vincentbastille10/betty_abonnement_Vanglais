@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Finalisez votre inscription — Betty Bots</title>
+  <title>Complete your registration — Betty Bots</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -119,46 +119,45 @@
 
 <body>
   <div class="container">
-    <!-- ✅ Logo inchangé -->
+    <!-- ✅ Logo unchanged -->
     <img src="{{ url_for('static', filename='logo-bettybots.png') }}" alt="Betty Bots logo" class="logo">
 
-    <h1>Finalisez votre inscription</h1>
+    <h1>Complete your registration</h1>
     <p class="desc">
-      Vous êtes sur le point d’activer votre bot <strong>Betty</strong>.<br>
-      Après validation, vous serez redirigé vers la page de paiement Stripe<br>
-      (<strong>7 jours d’essai gratuits, puis 29,99 €/mois</strong> – sans engagement).
+      You’re about to activate your <strong>Betty</strong> bot.<br>
+      After validation, you’ll be redirected to the Stripe payment page<br>
+      (<strong>7-day free trial, then €29.99/month</strong> – no long-term commitment).
     </p>
 
-    {# ✅ IMPORTANT : Rejouer la query-string au POST pour que request.args reste peuplé côté Python #}
+    {# ✅ IMPORTANT: replay the query-string on POST so request.args stays populated in Python #}
     <form
       method="post"
       action="{{ url_for('inscription_page') }}?pack={{ (request.args.get('pack') or '')|urlencode }}&color={{ (request.args.get('color') or '')|urlencode }}&avatar={{ (request.args.get('avatar') or '')|urlencode }}&greeting={{ (request.args.get('greeting') or '')|urlencode }}&contact={{ (request.args.get('contact') or request.args.get('contact_info') or '')|urlencode }}&px={{ (request.args.get('px') or '0')|urlencode }}&py={{ (request.args.get('py') or '0')|urlencode }}"
       novalidate
       id="inscription-form"
     >
-      <label for="email">Email professionnel</label>
+      <label for="email">Business email</label>
       <input
         type="email"
         id="email"
         name="email"
         required
         autocomplete="email"
-        placeholder="exemple@votre-entreprise.com"
+        placeholder="example@your-business.com"
         inputmode="email"
         value="{{ request.args.get('email','') }}"
       >
-      <button type="submit" class="btn">Valider et payer</button>
+      <button type="submit" class="btn">Confirm and pay</button>
 
-      <!-- ✅ Filet de sécurité : on garde une copie côté client (jamais affichée) -->
+      <!-- ✅ Safety net: keep a client-side copy (never displayed) -->
       <input type="hidden" id="email_mirror" name="email_mirror" value="">
     </form>
 
-    <p class="footer">propulsé par <strong>Spectra Media AI</strong></p>
+    <p class="footer">powered by <strong>Spectra Media AI</strong></p>
   </div>
 
-  <!-- ✅ Robuste : on normalise + on persiste l’email localement, on POST au backend, puis on redirige vers Stripe 7j -->
+  <!-- ✅ Robust: normalize + persist email locally, POST to backend, then redirect to Stripe 7-day trial -->
 
 </body>
 </html>
 {% endblock %}
-
