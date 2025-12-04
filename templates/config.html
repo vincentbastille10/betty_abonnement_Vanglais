@@ -30,7 +30,7 @@
     color: #ffffff;
   }
 
-  /* Bloc avatar sélectionné + légende */
+  /* Selected avatar block + caption */
   .selected-metier-avatar {
     margin-top: 0.4rem;
     display: inline-flex;
@@ -94,115 +94,115 @@
   }
 </style>
 
-<h1>Configurer votre chatbot</h1>
-<p class="intro">Choisissez un métier, une couleur, ajustez la personnalité et personnalisez le message d’accueil.</p>
+<h1>Configure your chatbot</h1>
+<p class="intro">Choose a profession, a color, adjust the personality, and customize the welcome message.</p>
 
 <form method="POST" action="{{ url_for('config_page') }}" id="cfg-form" class="cfg-grid">
 
-  <!-- Métier / Avatar -->
+  <!-- Profession / Avatar -->
   <section class="card">
-    <h2>Métier</h2>
-    <p class="hint">Sélectionnez un avatar principal ou ouvrez le tiroir pour accéder à tous les métiers Betty.</p>
+    <h2>Profession</h2>
+    <p class="hint">Select a main avatar or open the drawer to access all available Betty professions.</p>
 
     <div class="avatar-grid">
 
-      <!-- Avocat -->
+      <!-- Lawyer -->
       <label class="avatar-card selected">
         <input type="radio" name="pack" value="avocat" data-avatar="avocat.jpg" checked>
-        <img src="{{ url_for('static', filename='avocat.jpg') }}" alt="Avocat">
-        <div class="a-label">Avocat</div>
+        <img src="{{ url_for('static', filename='avocat.jpg') }}" alt="Lawyer">
+        <div class="a-label">Lawyer</div>
       </label>
 
-      <!-- Médecin -->
+      <!-- Doctor -->
       <label class="avatar-card">
         <input type="radio" name="pack" value="medecin" data-avatar="medecin.jpg">
-        <img src="{{ url_for('static', filename='medecin.jpg') }}" alt="Médecin">
-        <div class="a-label">Médecin</div>
+        <img src="{{ url_for('static', filename='medecin.jpg') }}" alt="Doctor">
+        <div class="a-label">Doctor</div>
       </label>
 
-      <!-- Immobilier -->
+      <!-- Real estate -->
       <label class="avatar-card">
         <input type="radio" name="pack" value="immo" data-avatar="immo.jpg">
-        <img src="{{ url_for('static', filename='immo.jpg') }}" alt="Immobilier">
-        <div class="a-label">Immobilier</div>
+        <img src="{{ url_for('static', filename='immo.jpg') }}" alt="Real estate">
+        <div class="a-label">Real estate</div>
       </label>
 
     </div>
-    <small class="hint">Cliquez pour sélectionner. Taille d’affichage : 4 cm × 4 cm.</small>
+    <small class="hint">Click to select. Display size: 4 cm × 4 cm.</small>
 
-    <!-- 🔒 Un SEUL avatar envoyé au back -->
+    <!-- 🔒 Only ONE avatar is sent to the backend -->
     <input type="hidden" name="avatar" id="avatar-hidden" value="avocat.jpg">
 
-    <!-- ===== TIROIR METIER ===== -->
+    <!-- ===== PROFESSION DRAWER ===== -->
     <div class="metier-drawer">
       <button type="button" class="drawer-toggle" id="drawer-toggle">
-        Plus de métiers : faites dérouler le menu
+        More professions: open the full list
       </button>
 
       <p id="metier-selected-label" class="selected-metier-label">
-        Métier sélectionné : <strong>Avocat</strong>. Continuez la configuration de votre bot.
+        Selected profession: <strong>Lawyer</strong>. You can continue configuring your bot.
       </p>
 
-      <!-- Aperçu avatar + légende -->
+      <!-- Avatar preview + legend -->
       <div class="selected-metier-avatar">
         <img id="avatar-preview"
              src="{{ url_for('static', filename='avocat.jpg') }}"
-             alt="Avatar sélectionné"
+             alt="Selected avatar"
              class="avatar-preview-img">
         <div class="selected-metier-avatar-text">
-          <span>Avatar sélectionné</span>
-          <small>Ce sera la photo utilisée dans votre Chatbot intelligent Betty.</small>
+          <span>Selected avatar</span>
+          <small>This is the picture used in your intelligent Betty chatbot.</small>
         </div>
       </div>
 
       <div class="drawer-panel" id="drawer-panel" hidden>
-        <p class="hint">Cliquez sur votre métier pour charger l’avatar et le pack correspondant.</p>
+        <p class="hint">Click on your profession to load the corresponding avatar and configuration pack.</p>
 
-        <!-- radio caché qui portera le pack choisi dans le tiroir -->
+        <!-- Hidden radio that will carry the pack chosen in the drawer -->
         <input type="radio" name="pack" id="drawer-pack-radio" value="" data-avatar="" style="display:none">
 
         <div class="drawer-grid">
-          <!-- ordre alphabétique sur le label humain -->
+          <!-- Alphabetical order based on human label -->
           <button type="button" class="drawer-chip"
                   data-pack="betty_aide_a_domicile"
                   data-avatar="Betty_aide_a_domicile.png"
-                  data-label="Aide à domicile">
-            Aide à domicile
+                  data-label="Home care">
+            Home care
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_aide_a_dom"
                   data-avatar="Betty_aide_a_dom.png"
-                  data-label="Aide à domicile (rapide)">
-            Aide à domicile (rapide)
+                  data-label="Home care (quick)">
+            Home care (quick)
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_architecte"
                   data-avatar="Betty_architecte.png"
-                  data-label="Architecte">
-            Architecte
+                  data-label="Architect">
+            Architect
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_artisan"
                   data-avatar="Betty_artisan.png"
-                  data-label="Artisan">
-            Artisan
+                  data-label="Craftsman / Artisan">
+            Craftsman / Artisan
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_assistance_scolaire"
                   data-avatar="Betty_assistance_scolaire.png"
-                  data-label="Assistance scolaire">
-            Assistance scolaire
+                  data-label="School assistance">
+            School assistance
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_assurance"
                   data-avatar="Betty_assurance.png"
-                  data-label="Assurance">
-            Assurance
+                  data-label="Insurance">
+            Insurance
           </button>
 
           <button type="button" class="drawer-chip"
@@ -215,15 +215,15 @@
           <button type="button" class="drawer-chip"
                   data-pack="betty_coiffeur"
                   data-avatar="Betty_coiffeur.png"
-                  data-label="Coiffeur">
-            Coiffeur
+                  data-label="Hairdresser">
+            Hairdresser
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_dentiste"
                   data-avatar="Betty_dentiste.png"
-                  data-label="Dentiste">
-            Dentiste
+                  data-label="Dentist">
+            Dentist
           </button>
 
           <button type="button" class="drawer-chip"
@@ -236,36 +236,36 @@
           <button type="button" class="drawer-chip"
                   data-pack="betty_estheticienne"
                   data-avatar="Betty_estheticienne.png"
-                  data-label="Esthéticienne">
-            Esthéticienne
+                  data-label="Beautician">
+            Beautician
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_garde_denfant"
                   data-avatar="Betty_garde_denfant.png"
-                  data-label="Garde d’enfant">
-            Garde d’enfant
+                  data-label="Childcare">
+            Childcare
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_graphiste"
                   data-avatar="Betty_graphiste.png"
-                  data-label="Graphiste">
-            Graphiste
+                  data-label="Graphic designer">
+            Graphic designer
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_infirmiere"
                   data-avatar="Betty_infirmiere.png"
-                  data-label="Infirmière">
-            Infirmière
+                  data-label="Nurse">
+            Nurse
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_kine"
                   data-avatar="Betty_kine.png"
-                  data-label="Kiné">
-            Kiné
+                  data-label="Physiotherapist">
+            Physiotherapist
           </button>
 
           <button type="button" class="drawer-chip"
@@ -278,71 +278,71 @@
           <button type="button" class="drawer-chip"
                   data-pack="betty_mecano"
                   data-avatar="Betty_mecano.png"
-                  data-label="Mécano">
-            Mécano
+                  data-label="Mechanic">
+            Mechanic
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_menage"
                   data-avatar="Betty_menage.png"
-                  data-label="Ménage">
-            Ménage
+                  data-label="Cleaning services">
+            Cleaning services
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_nutritioniste"
                   data-avatar="Betty_nutritioniste.png"
-                  data-label="Nutritionniste">
-            Nutritionniste
+                  data-label="Nutritionist">
+            Nutritionist
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_osteopate"
                   data-avatar="Betty_osteopate.png"
-                  data-label="Ostéopathe">
-            Ostéopathe
+                  data-label="Osteopath">
+            Osteopath
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_paysagiste"
                   data-avatar="Betty_paysagiste.png"
-                  data-label="Paysagiste">
-            Paysagiste
+                  data-label="Landscaper">
+            Landscaper
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_photographe"
                   data-avatar="Betty_photographe.png"
-                  data-label="Photographe">
-            Photographe
+                  data-label="Photographer">
+            Photographer
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_plombier"
                   data-avatar="Betty_plombier.png"
-                  data-label="Plombier">
-            Plombier
+                  data-label="Plumber">
+            Plumber
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_serrurier"
                   data-avatar="Betty_serrurier.png"
-                  data-label="Serrurier">
-            Serrurier
+                  data-label="Locksmith">
+            Locksmith
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_sophrologue"
                   data-avatar="Betty_sophrologue.png"
-                  data-label="Sophrologue">
-            Sophrologue
+                  data-label="Sophrologist / stress coach">
+            Sophrologist / stress coach
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_soutien_scolaire"
                   data-avatar="Betty_soutien_scolaire.png"
-                  data-label="Soutien scolaire">
-            Soutien scolaire
+                  data-label="Tutoring / homework help">
+            Tutoring / homework help
           </button>
 
           <button type="button" class="drawer-chip"
@@ -355,33 +355,33 @@
           <button type="button" class="drawer-chip"
                   data-pack="betty_traiteur"
                   data-avatar="Betty_traiteur.png"
-                  data-label="Traiteur">
-            Traiteur
+                  data-label="Caterer">
+            Caterer
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_verrier"
                   data-avatar="Betty_verrier.png"
-                  data-label="Verrier">
-            Verrier
+                  data-label="Glassmaker">
+            Glassmaker
           </button>
 
           <button type="button" class="drawer-chip"
                   data-pack="betty_yoga"
                   data-avatar="Betty_yoga.png"
-                  data-label="Prof de yoga">
-            Prof de yoga
+                  data-label="Yoga teacher">
+            Yoga teacher
           </button>
         </div>
       </div>
     </div>
-    <!-- ===== /TIROIR METIER ===== -->
+    <!-- ===== /PROFESSION DRAWER ===== -->
 
   </section>
 
-  <!-- Couleurs -->
+  <!-- Colors -->
   <section class="card">
-    <h2>Couleur</h2>
+    <h2>Color</h2>
     <div class="color-grid">
       <label class="color-swatch" style="--c:#4F46E5">
         <input type="radio" name="color" value="#4F46E5" checked>
@@ -404,57 +404,57 @@
     </div>
   </section>
 
-  <!-- Personnalité (curseur 2D) -->
+  <!-- Personality (2D slider) -->
   <section class="card">
-    <h2>Personnalité</h2>
+    <h2>Personality</h2>
     <div class="axes-wrap">
-      <div class="axis-label top">Chaleureuse</div>
-      <div class="axis-label left">Empathique</div>
+      <div class="axis-label top">Warm</div>
+      <div class="axis-label left">Empathetic</div>
       <div class="joystick" id="joy">
         <div class="thumb" id="thumb"></div>
       </div>
-      <div class="axis-label right">Efficace</div>
-      <div class="axis-label bottom">Précise</div>
+      <div class="axis-label right">Efficient</div>
+      <div class="axis-label bottom">Precise</div>
     </div>
     <input type="hidden" name="persona_x" id="persona_x" value="0">
     <input type="hidden" name="persona_y" id="persona_y" value="0">
-    <small class="hint">Déplacez le curseur : gauche = empathique, droite = efficace, haut = chaleureuse, bas = précise.</small>
+    <small class="hint">Move the cursor: left = more empathetic, right = more efficient, up = warmer, down = more precise.</small>
   </section>
 
-  <!-- Contenus -->
+  <!-- Business information -->
   <section class="card">
-    <h2>Contenus</h2>
+    <h2>Business information</h2>
     <label class="field">
-      <span>Nom / Entreprise</span>
-      <input type="text" name="info_name" placeholder="Ex : Cabinet Dupont">
+      <span>Name / Company</span>
+      <input type="text" name="info_name" placeholder="e.g. Dupont Law Firm">
     </label>
 
     <label class="field">
-      <span>Téléphone</span>
-      <input type="text" name="info_phone" placeholder="Ex : 02 43 XX XX XX">
+      <span>Phone</span>
+      <input type="text" name="info_phone" placeholder="e.g. +33 2 43 XX XX XX">
     </label>
 
     <label class="field">
-      <span>Email de contact</span>
-      <input type="email" name="info_email" placeholder="Ex : contact@cabinet-dupont.fr">
+      <span>Contact email</span>
+      <input type="email" name="info_email" placeholder="e.g. contact@dupont-law.com">
     </label>
 
     <label class="field">
-      <span>Adresse</span>
+      <span>Address</span>
       <textarea name="info_address" rows="3"
-        placeholder="Ex : 12 rue de la République, 72000 Le Mans"></textarea>
+        placeholder="e.g. 12 Rue de la République, 72000 Le Mans, France"></textarea>
     </label>
 
   </section>
 
   <!-- CTA -->
   <div class="cta">
-    <button type="submit" class="btn primary big">Enregistrer et s’abonner</button>
+    <button type="submit" class="btn primary big">Save and subscribe</button>
   </div>
 </form>
 
 <script>
-  // ====== Pack <-> Avatar : synchro 100% fiable ======
+  // ====== Pack <-> Avatar: 100% reliable sync ======
   const AVATAR_BASE = "{{ url_for('static', filename='') }}";
 
   const packRadios   = document.querySelectorAll('input[type="radio"][name="pack"]');
@@ -477,15 +477,15 @@
       txt = txt.charAt(0).toUpperCase() + txt.slice(1);
     }
 
-    if (!txt) txt = "Avocat";
-    metierLabel.innerHTML = 'Métier sélectionné : <strong>' + txt + '</strong>. Continuez la configuration de votre bot.';
+    if (!txt) txt = "Lawyer";
+    metierLabel.innerHTML = 'Selected profession: <strong>' + txt + '</strong>. You can continue configuring your bot.';
   }
 
   function applySelection(radio){
     const file = radio.getAttribute('data-avatar') || 'avocat.jpg';
     avatarHidden.value = file;
 
-    // met à jour l’aperçu avatar
+    // Update avatar preview
     const preview = document.getElementById('avatar-preview');
     if (preview) {
       preview.src = AVATAR_BASE + file;
@@ -514,7 +514,7 @@
     }
   });
 
-  // ====== TIROIR METIER ======
+  // ====== PROFESSION DRAWER ======
   const drawerToggle   = document.getElementById('drawer-toggle');
   const drawerPanel    = document.getElementById('drawer-panel');
   const drawerRadio    = document.getElementById('drawer-pack-radio');
@@ -538,29 +538,29 @@
       const avatar = chip.dataset.avatar;
       const label  = chip.dataset.label || pack;
 
-      // radio caché = pack métier
+      // Hidden radio = profession pack
       drawerRadio.value = pack;
       drawerRadio.setAttribute('data-avatar', avatar);
       drawerRadio.dataset.label = label;
       drawerRadio.checked = true;
 
-      // visuel : on désactive les avatars principaux
+      // Visual: deactivate main avatars
       cards.forEach(c => c.classList.remove('selected'));
 
-      // maj avatar + texte de confirmation
+      // Update avatar + confirmation text
       applySelection(drawerRadio);
 
-      // état visuel des chips
+      // Visual state on chips
       drawerChips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
 
-      // on referme le tiroir pour un flow plus fluide
+      // Close the drawer for a smoother flow
       drawerPanel.setAttribute('hidden', 'hidden');
       drawerToggle.classList.remove('open');
     });
   });
 
-  // ====== Joystick 2D ======
+  // ====== 2D Joystick ======
   const joy  = document.getElementById('joy');
   const thumb= document.getElementById('thumb');
   const ix   = document.getElementById('persona_x');
@@ -597,4 +597,3 @@
 </script>
 
 {% endblock %}
-
