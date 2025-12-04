@@ -1,26 +1,26 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Betty Bot — Intégration</title>
+  <title>Betty Bot — Integration</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  {# ====== CONFIG (venues d’app.py) ====== #}
+  {# ====== CONFIG (from app.py) ====== #}
   {% set primary    = (cfg.color_hex if (cfg and cfg.color_hex) else '#4F46E5') %}
   {% set shape      = (cfg.shape if (cfg and cfg.shape) else 'rounded') %}
-  {% set bot_name   = (cfg.name if (cfg and cfg.name) else 'Mon Betty Bot') %}
+  {% set bot_name   = (cfg.name if (cfg and cfg.name) else 'My Betty Bot') %}
   {% set pack_slug  = (cfg.slug if (cfg and cfg.slug) else 'agent_immobilier') %}
   {% set persona    = (cfg.persona if (cfg and cfg.persona) else 'neutre') %}
   {% set bot_id     = (bot.get('id') if bot else None) %}
 
   {% set show_brand      = True %}
-  {% set brand_text      = (cfg.brand_text if cfg and cfg.brand_text else 'Betty Bot — propulsé par Spectra Media') %}
+  {% set brand_text      = (cfg.brand_text if cfg and cfg.brand_text else 'Betty Bot — powered by Spectra Media') %}
   {% set brand_link      = (cfg.brand_link if cfg and cfg.brand_link else 'https://spectramedia.ai') %}
 
   {% set pack_labels = {
-    'agent_immobilier':'Agent immobilier',
-    'avocat':'Avocat',
-    'medecin':'Médecin'
+    'agent_immobilier':'Real estate agent',
+    'avocat':'Lawyer',
+    'medecin':'Doctor'
   } %}
   {% set pack_label = pack_labels.get(pack_slug, pack_slug) %}
   {% set avatar_url = (cfg.avatar_url if (cfg and cfg.avatar_url) else '/avatar/agent_immo') %}
@@ -43,7 +43,7 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif
     }
 
-    /* Bandeau branding */
+    /* Branding bar */
     .bb-brand{
       position:sticky;top:0;left:0;right:0;height:34px;z-index:999;
       background:#0b0b0f;color:#cbd5e1;border-bottom:1px solid rgba(255,255,255,.06);
@@ -101,7 +101,7 @@
       <div class="avatar"><img src="{{ avatar_url }}" alt="avatar"></div>
       <div>
         <h1>{{ bot_name }}</h1>
-        <div class="sub">Pack : {{ pack_label }}</div>
+        <div class="sub">Pack: {{ pack_label }}</div>
       </div>
     </div>
 
@@ -109,11 +109,11 @@
       <div class="chat">
         <div id="messages" class="messages"></div>
         <div class="input">
-          <input id="msg" placeholder="Écrivez votre message…" autocomplete="off">
-          <button id="send">Envoyer</button>
+          <input id="msg" placeholder="Type your message…" autocomplete="off">
+          <button id="send">Send</button>
         </div>
         <div class="small">
-          Astuce : tapez <span class="kbd">Entrée</span> pour envoyer. Exemple : “je veux un rendez-vous demain”.
+          Tip: press <span class="kbd">Enter</span> to send. For example: “I’d like an appointment tomorrow”.
         </div>
       </div>
     </div>
@@ -123,13 +123,13 @@
   <!-- ========== SCRIPT ========= -->
   <!-- =========================== -->
   <script>
-    // -------- Contexte transmis par le serveur --------
+    // -------- Context sent by the server --------
     const BOT_ID   = {{ bot_id|tojson }};
     const PACK     = {{ pack_slug|tojson }};
     const PRIMARY  = {{ primary|tojson }};
     let   persona  = {{ persona|tojson }};
 
-    // Coordonnées publiques (si configurées dans le dashboard)
+    // Public contact details (if set in the dashboard)
     const PRO_PHONE         = {{ (cfg.pro_phone or '')|tojson }};
     const PRO_ADDRESS_LABEL = {{ (cfg.pro_address_label or '')|tojson }};
     const PRO_ADDRESS_URL   = {{ (cfg.pro_address_url or '')|tojson }};
@@ -137,20 +137,20 @@
       ? PRO_ADDRESS_URL
       : (PRO_ADDRESS_LABEL ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PRO_ADDRESS_LABEL)}` : null);
 
-    // -------- Amorce par pack (strict) --------
+    // -------- Pack-specific lead prompts --------
     const LEAD_PROMPTS = {
-      agent_immobilier: "Souhaitez-vous acheter, vendre ou louer ? Sur quelle zone ?",
-      avocat:           "Quel type de dossier (famille, travail, pénal...) et quel degré d’urgence ?",
-      medecin:          "Quel est votre motif de consultation et vos disponibilités ?"
+      agent_immobilier: "Are you looking to buy, sell or rent? In which area?",
+      avocat:           "What type of case is it (family, work, criminal...) and how urgent is it?",
+      medecin:          "What is the reason for your visit and what are your availabilities?"
     };
-    const START_GREETING = {{ (cfg.welcome_text or 'Bonjour 👋')|tojson }};
+    const START_GREETING = {{ (cfg.welcome_text or 'Hello 👋')|tojson }};
 
     // -------- UI --------
     const messagesEl = document.getElementById('messages');
     const msgInput   = document.getElementById('msg');
     const sendBtn    = document.getElementById('send');
 
-    // Bulle texte
+    // Text bubble
     function addBubble(text, who='bot', cls=null){
       const b = document.createElement('div');
       b.className = 'bubble ' + (who === 'me' ? 'me' : 'bot') + (cls ? (' ' + cls) : '');
@@ -159,7 +159,7 @@
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    // Bulle HTML (pour coordonnées cliquables)
+    // HTML bubble (for clickable contact info)
     function addHtmlBubble(html){
       const b = document.createElement('div');
       b.className = 'bubble bot';
@@ -168,14 +168,14 @@
       messagesEl.scrollTop = messagesEl.scrollHeight;
     }
 
-    // Historique minimal (contenu utilisateur uniquement)
+    // Minimal history (user messages only)
     function userHistory(){
       return Array.from(messagesEl.querySelectorAll('.bubble.me')).map(el => el.textContent);
     }
 
-    // -------- Lead universel --------
+    // -------- Universal lead collection --------
     const lead = { nom:"", prenom:"", telephone:"", email:"" };
-    let leadStep = 0; // 0:nom,1:prenom,2:tel,3:email,4:done
+    let leadStep = 0; // 0:last name,1:first name,2:phone,3:email,4:done
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     // Regex to detect and strip the lead JSON metadata from the model's reply.
@@ -188,10 +188,10 @@
     function isLeadComplete(l){ return l.nom && l.prenom && l.telephone && l.email; }
 
     function nextLeadQuestion(){
-      if (leadStep === 0) return addBubble("Quel est votre NOM ?");
-      if (leadStep === 1) return addBubble("Et votre PRÉNOM ?");
-      if (leadStep === 2) return addBubble("Votre TÉLÉPHONE (mobile de préférence) ?");
-      if (leadStep === 3) return addBubble("Enfin, votre ADRESSE EMAIL ?");
+      if (leadStep === 0) return addBubble("What is your LAST NAME?");
+      if (leadStep === 1) return addBubble("And your FIRST NAME?");
+      if (leadStep === 2) return addBubble("Your PHONE NUMBER (mobile preferred)?");
+      if (leadStep === 3) return addBubble("Finally, your EMAIL address?");
     }
 
     function acceptLeadAnswer(text){
@@ -201,11 +201,11 @@
       if (leadStep === 1) { lead.prenom = t.charAt(0).toUpperCase() + t.slice(1); leadStep = 2; return true; }
       if (leadStep === 2) {
         const digits = t.replace(/[^\d+]/g,"");
-        if (digits.length < 8) { addBubble("Le numéro semble trop court. Pouvez-vous le vérifier ?", "bot", "warn"); return true; }
+        if (digits.length < 8) { addBubble("That phone number seems too short. Could you check it?", "bot", "warn"); return true; }
         lead.telephone = digits; leadStep = 3; return true;
       }
       if (leadStep === 3) {
-        if (!emailRe.test(t)) { addBubble("L’email ne semble pas valide. Pouvez-vous le retaper ?", "bot", "warn"); return true; }
+        if (!emailRe.test(t)) { addBubble("That email doesn’t look valid. Could you type it again?", "bot", "warn"); return true; }
         lead.email = t; leadStep = 4; return true;
       }
       return false;
@@ -214,7 +214,7 @@
     async function submitLeadIfComplete(){
       if (!isLeadComplete(lead)) return;
       addBubble(
-        `Merci ${lead.prenom} ${lead.nom}. J’ai bien noté :\n- Téléphone : ${lead.telephone}\n- Email : ${lead.email}\nUn conseiller vous rappellera rapidement.`,
+        `Thank you ${lead.prenom} ${lead.nom}. I’ve saved:\n- Phone: ${lead.telephone}\n- Email: ${lead.email}\nSomeone will get back to you shortly.`,
         "bot", null
       );
       const payload = {
@@ -230,14 +230,14 @@
           credentials: 'same-origin',
           body: JSON.stringify(payload)
         });
-      } catch {/* silencieux dans l’embed */}
+      } catch {/* silent in embed */}
     }
 
-    // -------- Réponse coordonnées si demandé --------
+    // -------- Business info reply (phone / address) --------
     function userAsksForBusinessInfo(text){
       const t = (text || '').toLowerCase();
-      const askPhone = /t(é|e)l(é|e)phone|num(é|e)ro|joindre|appeler|appel/i.test(t) && !!PRO_PHONE;
-      const askAddr  = /(adresse|o(ù|u)\s+(vous\s+)?(situez|trouvez)|venir|localisation|plan|map|google\s+maps)/i.test(t)
+      const askPhone = /(t(é|e)l(é|e)phone|num(é|e)ro|joindre|appeler|appel|phone|call|number)/i.test(t) && !!PRO_PHONE;
+      const askAddr  = /(adresse|address|where\s+are\s+you|location|venir|o(ù|u)\s+(vous\s+)?(situez|trouvez)|map|google\s+maps)/i.test(t)
                         && (!!PRO_ADDRESS_LABEL || !!MAP_URL);
       return { askPhone, askAddr };
     }
@@ -246,17 +246,17 @@
       const { askPhone, askAddr } = userAsksForBusinessInfo(text);
       if (!askPhone && !askAddr) return false;
       const parts = [];
-      if (askPhone && PRO_PHONE) { parts.push(`📞 Téléphone : <b>${PRO_PHONE}</b>`); }
+      if (askPhone && PRO_PHONE) { parts.push(`📞 Phone: <b>${PRO_PHONE}</b>`); }
       if (askAddr && (PRO_ADDRESS_LABEL || MAP_URL)) {
-        const link = MAP_URL ? `<a href="${MAP_URL}" target="_blank" rel="noopener">ouvrir dans Google Maps</a>` : '';
+        const link = MAP_URL ? `<a href="${MAP_URL}" target="_blank" rel="noopener">open in Google Maps</a>` : '';
         const label = PRO_ADDRESS_LABEL ? `<b>${PRO_ADDRESS_LABEL}</b>` : '';
-        parts.push(`📍 Adresse : ${label}${label && link ? " — " : ""}${link}`);
+        parts.push(`📍 Address: ${label}${label && link ? " — " : ""}${link}`);
       }
       if (parts.length) addHtmlBubble(parts.join("<br>"));
       return true;
     }
 
-    // -------- Appel API “métier” --------
+    // -------- API call to the métier backend --------
     async function callChatAPI(text){
       const payload = {
         message: text,
@@ -282,7 +282,7 @@
       } catch { return { ok:false }; }
     }
 
-    // -------- Envoi --------
+    // -------- Sending --------
     let sending = false;
     async function send(text){
       const t = (text || '').trim();
@@ -293,23 +293,23 @@
       const progressed = acceptLeadAnswer(t);
       if (progressed) {
         if (leadStep < 4) { nextLeadQuestion(); sending = false; sendBtn.disabled = false; msgInput.focus(); return; }
-        await submitLeadIfComplete();  // envoi silencieux
+        await submitLeadIfComplete();  // silent send
       }
       const { ok, data } = await callChatAPI(t);
       if (!ok || !data || typeof data.reply !== 'string') {
-        addBubble('Je n’ai pas bien compris, pouvez-vous préciser ?', 'bot', 'warn');
+        addBubble('I didn’t quite get that, could you clarify?', 'bot', 'warn');
       } else {
-        // Filtrage strict : ne jamais poser une question d’un autre pack
+        // Strict filtering: never ask a question from another pack
         const safePrompts = {
-          agent_immobilier: /acheter|vendre|louer|budget|zone|quartier|surface|pi[eè]ces/i,
-          avocat: /(dossier|p[ée]nal|travail|famille|prud.hom|urgence|tribunal)/i,
-          medecin: /(consultation|douleur|sympt[oô]me|disponibilit[eé]s|rdv|rendez)/i
+          agent_immobilier: /(acheter|vendre|louer|buy|sell|rent|budget|zone|quartier|area|neighborhood|surface|square\s*meters?|rooms?)/i,
+          avocat: /(dossier|p[ée]nal|travail|famille|prud.hom|urgence|tribunal|case|lawsuit|court|legal)/i,
+          medecin: /(consultation|douleur|sympt[oô]me|disponibilit[eé]s|rdv|rendez|appointment|symptoms?|doctor)/i
         };
         const rawReply = (data.reply || '').trim();
         // Strip lead JSON metadata from the reply before filtering
         const reply = stripLead(rawReply);
-        const okPack = safePrompts[PACK] ? safePrompts[PACK].test(reply) || /^bonjour/i.test(reply) : true;
-        addBubble(okPack ? reply : (LEAD_PROMPTS[PACK] || "Pouvez-vous préciser votre besoin ?"), 'bot');
+        const okPack = safePrompts[PACK] ? safePrompts[PACK].test(reply) || /^bonjour|^hello/i.test(reply) : true;
+        addBubble(okPack ? reply : (LEAD_PROMPTS[PACK] || "Could you tell me a bit more about your request?"), 'bot');
       }
       sending = false; sendBtn.disabled = false; msgInput.focus();
     }
@@ -318,12 +318,12 @@
     sendBtn.addEventListener('click', ()=> send(msgInput.value));
     msgInput.addEventListener('keydown', (e)=>{ if (e.key === 'Enter') { e.preventDefault(); send(msgInput.value); } });
 
-    // -------- Démarrage (auto-focus + amorce pack) --------
+    // -------- Initial messages (auto-focus + pack prompt) --------
     (()=>{
       addBubble(START_GREETING, 'bot');
-      const hint = LEAD_PROMPTS[PACK] || "Pouvez-vous préciser votre besoin ?";
+      const hint = LEAD_PROMPTS[PACK] || "Could you tell me a bit more about your request?";
       addBubble(hint, 'bot');
-      nextLeadQuestion(); // NOM d’abord
+      nextLeadQuestion(); // ask LAST NAME first
       msgInput.focus();
     })();
   </script>
