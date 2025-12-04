@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-{# Masque le titre "✨ Betty Bots" qui vient éventuellement du layout de base #}
+{# Hide the "✨ Betty Bots" title that might come from the base layout #}
 <style>
   header h1:first-child {
     display: none;
   }
 </style>
 
-<!-- Bandeau logos Spectra Media + Betty Bots (version large) -->
+<!-- Spectra Media + Betty Bots logos (large version) -->
 <div style="display:flex;justify-content:center;align-items:center;gap:40px;margin:24px 0 8px;">
   <img src="{{ url_for('static', filename='spectra_media_logo.png') }}"
        alt="Spectra Media"
@@ -18,30 +18,30 @@
        style="height:120px;object-fit:contain;">
 </div>
 
-<h1>Découvrez Betty Bots</h1>
+<h1>Meet Betty Bots</h1>
 <p class="intro">
-  Le chatbot métier intelligent nouvelle génération qui <strong>récupère vos clients 24/7</strong> avec une <strong>IA spécialisée</strong>.
-  Intégration en <strong>2 minutes</strong> sur votre site. Gagnez du temps, ne ratez plus d’opportunités.
+  The next-generation, profession-focused chatbot that <strong>captures your clients 24/7</strong> with a <strong>specialized AI</strong>.
+  Integration in <strong>2 minutes</strong> on your website. Save time and never miss an opportunity again.
 </p>
 
-<!-- Bloc CTA : colonne centrée -->
+<!-- CTA block: centered column -->
 <div class="hero-cta"
      style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:4px;">
 
   <p class="trial-note" style="max-width:520px;margin:0;text-align:center;font-size:15px;opacity:.88;">
-    Aucun risque : testez Betty pendant <strong>7 jours gratuitement</strong>, puis décidez si vous souhaitez continuer.
+    No risk: try Betty for <strong>7 days for free</strong>, then decide if you want to keep it.
   </p>
 
-  <!-- Bouton essai gratuit 7 jours -> va vers la page de configuration -->
+  <!-- 7-day free trial button -> goes to configuration page -->
   <a href="{{ url_for('config_page') }}"
      class="btn primary big"
      style="display:inline-block;margin:0 auto;">
-    Essayer Betty 7 jours gratuitement
+    Try Betty free for 7 days
   </a>
 
 </div>
 
-<!-- 🔵 Bouton Site à 1€ -->
+<!-- 🔵 “Site à 1€” button -->
 <div style="margin-top:20px; text-align:center;">
   <a href="https://sitea1euro.vercel.app/"
      style="
@@ -56,96 +56,96 @@
        box-shadow:0 0 22px rgba(37,99,235,0.6);
        margin-top:10px;
      ">
-    Vous n’avez pas de site ? Ajoutez 1 € pour votre site internet professionnel
+    No website yet? Add €1 and get a professional website
   </a>
   <p style="font-size:12px;opacity:.7;margin-top:6px;">
-    Mise en ligne automatique après paiement • Sans engagement
+    Automatic launch after payment • No long-term commitment
   </p>
 </div>
 
-<!-- Bandeau de confiance -->
+<!-- Trust band -->
 <div class="trust">
-  <div>✓ Paiement sécurisé Stripe</div>
-  <div>✓ Données traitées en toute confidentialité</div>
-  <div>✓ Résiliation possible à tout moment</div>
+  <div>✓ Secure Stripe payment</div>
+  <div>✓ Data handled confidentially</div>
+  <div>✓ Cancel anytime</div>
 </div>
 
-<!-- Points clés -->
+<!-- Key points -->
 <div class="features">
   <div class="feature">
-    <h3>Qualification automatique</h3>
-    <p>Nom, email, téléphone, motif… Betty collecte l’essentiel sans friction et vous envoie des prospects prêts à rappeler.</p>
+    <h3>Automatic lead qualification</h3>
+    <p>Name, email, phone, reason… Betty collects the essentials without friction and sends you ready-to-call leads.</p>
   </div>
   <div class="feature">
-    <h3>IA métier</h3>
-    <p>Réponses adaptées à votre activité (avocat, médecin, immobilier, notaire, artisan, etc...), ton personnalisable à votre image.</p>
+    <h3>Profession-specific AI</h3>
+    <p>Answers adapted to your activity (lawyer, doctor, real estate, notary, craftsman, etc.), with a tone customizable to your brand.</p>
   </div>
   <div class="feature">
     <h3>Plug &amp; play</h3>
-    <p>Un simple script à copier. Couleur, avatar, message d’accueil, coordonnées : tout se règle en quelques clics.</p>
+    <p>Just copy a simple script. Color, avatar, welcome message, contact details: everything is set up in a few clicks.</p>
   </div>
 </div>
 
-<!-- Bandeau métriques -->
+<!-- Metrics band -->
 <div class="metrics">
   <div class="metric">
     <div class="m-num">+120</div>
-    <div class="m-label">conversations qualifiées / mois</div>
+    <div class="m-label">qualified conversations / month</div>
   </div>
   <div class="metric">
     <div class="m-num">-35%</div>
-    <div class="m-label">de temps passé au téléphone</div>
+    <div class="m-label">time spent on the phone</div>
   </div>
   <div class="metric">
-    <div class="m-num">4,8★</div>
-    <div class="m-label">satisfaction moyenne des visiteurs</div>
+    <div class="m-num">4.8★</div>
+    <div class="m-label">average visitor satisfaction</div>
   </div>
 </div>
 
-<!-- Témoignages -->
+<!-- Testimonials -->
 <div class="testimonials">
   <div class="t-card">
     <div class="t-stars">★★★★★</div>
-    <p class="t-quote">“Betty filtre les demandes et prépare nos dossiers. On gagne un temps fou et on rappelle seulement les vrais prospects.”</p>
+    <p class="t-quote">“Betty filters incoming requests and prepares our files. We save a huge amount of time and only call back real prospects.”</p>
     <div class="t-author">
       <img src="{{ url_for('static', filename='logo-avocat.jpg') }}" onerror="this.style.display='none'">
       <div>
         <div class="t-name">Me Lefèvre</div>
-        <div class="t-role">Cabinet d’avocats – Le Mans</div>
+        <div class="t-role">Law firm – Le Mans</div>
       </div>
     </div>
   </div>
 
   <div class="t-card">
     <div class="t-stars">★★★★★</div>
-    <p class="t-quote">“En 2 minutes c’était en ligne. Les patients la trouvent claire, et nous recevons des demandes déjà qualifiées.”</p>
+    <p class="t-quote">“It was live in 2 minutes. Patients find it clear, and we receive requests that are already qualified.”</p>
     <div class="t-author">
       <img src="{{ url_for('static', filename='logo-medecin.jpg') }}" onerror="this.style.display='none'">
       <div>
         <div class="t-name">Dr Martin</div>
-        <div class="t-role">Cabinet médical – Sarthe</div>
+        <div class="t-role">Medical practice – Sarthe</div>
       </div>
     </div>
   </div>
 
   <div class="t-card">
     <div class="t-stars">★★★★☆</div>
-    <p class="t-quote">“Leads plus précis, moins d’allers-retours. Les visites s’enchaînent mieux et ça se voit sur le chiffre.”</p>
+    <p class="t-quote">“Leads are more precise, less back-and-forth. Viewings are smoother and it shows in our numbers.”</p>
     <div class="t-author">
       <img src="{{ url_for('static', filename='logo-immo.jpg') }}" onerror="this.style.display='none'">
       <div>
         <div class="t-name">R. Dubois</div>
-        <div class="t-role">Agence immobilière – Pays de la Loire</div>
+        <div class="t-role">Real estate agency – Pays de la Loire</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Badge Trustpilot -->
+<!-- Trustpilot badge -->
 <div class="trustpilot">
   <a href="#" rel="nofollow noopener">
     <img src="{{ url_for('static', filename='trustpilot-badge.png') }}" alt="Trustpilot" onerror="this.style.display='none'">
-    <span>Notes et avis vérifiés sur Trustpilot</span>
+    <span>Verified ratings and reviews on Trustpilot</span>
   </a>
 </div>
 
@@ -154,33 +154,33 @@
   <h2>FAQ</h2>
   <div class="faq-list">
     <details>
-      <summary>Quel est le prix et l’engagement ?</summary>
+      <summary>What’s the price and commitment?</summary>
       <div class="faq-body">
-        29,99 € / mois, sans engagement. Vous pouvez résilier à tout moment depuis votre espace (paiement sécurisé Stripe).
+        €29.99 / month, no commitment. You can cancel anytime from your account (secure Stripe payment).
       </div>
     </details>
     <details>
-      <summary>Comment s’intègre Betty sur mon site ?</summary>
+      <summary>How does Betty integrate with my website?</summary>
       <div class="faq-body">
-        Après paiement, vous obtenez un <strong>script unique</strong> à copier-coller sur votre site (HTML/WordPress/Wix/Webflow…). L’installation prend 2 minutes.
+        After payment, you get a <strong>unique script</strong> to copy-paste into your site (HTML / WordPress / Wix / Webflow…). Setup takes around 2 minutes.
       </div>
     </details>
     <details>
-      <summary>Mes données sont-elles protégées ?</summary>
+      <summary>Are my data protected?</summary>
       <div class="faq-body">
-        Oui. Les informations sont traitées de manière confidentielle, jamais revendues, et vous restez propriétaire de vos données. Vous pouvez demander leur suppression.
+        Yes. Information is handled confidentially, never sold, and you remain the owner of your data. You can request deletion at any time.
       </div>
     </details>
     <details>
-      <summary>Betty donne-t-elle des conseils juridiques/médicaux ?</summary>
+      <summary>Does Betty give legal / medical advice?</summary>
       <div class="faq-body">
-        Non. Betty <em>informe</em>, <em>oriente</em> et <em>qualifie</em> les demandes. Pour toute décision ou avis formel, elle propose un rendez-vous avec le professionnel.
+        No. Betty <em>informs</em>, <em>guides</em>, and <em>qualifies</em> incoming requests. For any formal decision or opinion, she proposes an appointment with the professional.
       </div>
     </details>
   </div>
 </section>
 
-<!-- Démo -->
+<!-- Live demo -->
 <div id="demo" class="demo-frame" style="margin-top:26px">
   <div class="chat-frame" id="chat" style="display:flex;flex-direction:column;">
     <div style="padding:18px 16px 10px;border-bottom:1px solid var(--border);text-align:center">
@@ -192,28 +192,28 @@
     <div id="messages" style="padding:16px;overflow:auto;flex:1;scroll-behavior:smooth">
       <div id="greet" class="bubble"
            style="max-width:280px;background:#111827;border:1px solid var(--border);border-radius:12px;padding:12px;margin:8px 0">
-        Bonjour, je suis Betty. Comment puis-je vous aider ?
+        Hi, I’m Betty. How can I help you today?
       </div>
     </div>
 
     <form id="form" style="padding:14px;border-top:1px solid var(--border);display:flex;gap:8px">
-      <input id="input" type="text" placeholder="Écrivez et appuyez sur Entrée…" autocomplete="off"
+      <input id="input" type="text" placeholder="Type and press Enter…" autocomplete="off"
              style="background:#0b0f14;border:1px solid var(--border);border-radius:10px;color:var(--text);padding:12px;flex:1">
-      <button class="btn" type="submit">Envoyer</button>
+      <button class="btn" type="submit">Send</button>
     </form>
   </div>
 </div>
 <p class="trial-note" style="max-width:520px;margin:0 auto 12px;text-align:center;font-size:15px;opacity:.88;">
-  Profitez de <strong>7 jours d’essai gratuit</strong> avant de vous engager.
+  Enjoy a <strong>7-day free trial</strong> before you commit.
 </p>
 
 <div class="hero-cta" style="margin-top:24px;text-align:center;">
   <a href="{{ url_for('config_page') }}"
      class="btn primary big"
-     style="display:inline-block;margin:0 auto;">Je crée mon bot maintenant</a>
+     style="display:inline-block;margin:0 auto;">Create my bot now</a>
 </div>
 <div style="text-align:center;font-size:13px;opacity:.7;margin-top:4px;">
-  Paiement sécurisé Stripe • Sans engagement • Annulable en 1 clic
+  Secure Stripe payment • No commitment • Cancel in one click
 </div>
 <div style="margin-top:40px;padding:20px 0;text-align:center;font-size:13px;opacity:.75;">
   <a href="mailto:spectramediabots@gmail.com"
@@ -232,7 +232,7 @@
   const form     = document.getElementById('form');
   const input    = document.getElementById('input');
 
-  // Focus intelligent : taper n'importe où = focus sur l'input (sans autofocus initial)
+  // Smart focus: typing anywhere focuses the input (without initial autofocus)
   document.addEventListener('keydown', (e) => {
     const ign = ['Enter','Escape','Tab'];
     if (ign.includes(e.key)) return;
@@ -247,7 +247,7 @@
 
   function scrollToBottom(){ msgs.scrollTop = msgs.scrollHeight; }
 
-  // Meta bot
+  // Bot meta
   fetch(`/api/bot_meta?bot_id=${encodeURIComponent(botId)}`)
     .then(r => r.json())
     .then(meta => {
@@ -258,7 +258,7 @@
       scrollToBottom();
     }).catch(()=>{});
 
-  // Bulle
+  // Bubble
   function addBubble(text, mine=false){
     const div = document.createElement('div');
     div.className = 'bubble';
@@ -276,7 +276,7 @@
     return div;
   }
 
-  // Loader "Betty écrit…"
+  // "Betty is typing…" loader
   function showTyping(){
     const t = document.createElement('div');
     t.className = 'bubble typing';
@@ -287,7 +287,7 @@
     t.style.margin = '8px 0';
     t.style.background = '#111827';
     t.style.marginRight = 'auto';
-    t.innerHTML = '<span class="label">Betty écrit</span><span class="dots"><i></i><i></i><i></i></span>';
+    t.innerHTML = '<span class="label">Betty is typing</span><span class="dots"><i></i><i></i><i></i></span>';
     msgs.appendChild(t);
     scrollToBottom();
     return t;
@@ -310,18 +310,18 @@
         body: JSON.stringify({ message: text, bot_id: botId })
       });
       const j = await r.json();
-      // Nettoyage robuste du tag technique (avec ou sans </LEAD_JSON>)
+      // Robust cleaning of technical tag (with or without </LEAD_JSON>)
       const cleaned = String(j.response ?? "")
         .replace(/\s*<LEAD_JSON>[\s\S]*?(?:<\/LEAD_JSON>|$)/g, "")
         .replace(/```[\s\S]*?```/g, "")
         .trim();
 
-      addBubble(cleaned || "Désolé, une erreur est survenue.");
+      addBubble(cleaned || "Sorry, something went wrong.");
       hideTyping(typing);
 
     } catch {
       hideTyping(typing);
-      addBubble("Désolé, une erreur est survenue.");
+      addBubble("Sorry, something went wrong.");
     }
   });
 </script>
